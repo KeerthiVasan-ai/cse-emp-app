@@ -13,9 +13,23 @@
         android:theme="@style/Theme.Cse_emp_app"
         tools:targetApi="31">
         <activity
+            android:name=".personal_details_features.presentation.PersonalDetailsActivity"
+            android:exported="false"
+            android:label="@string/title_activity_personal_details"
+            android:theme="@style/Theme.Cse_emp_app" />
+        <activity
+            android:name=".main_features.HomeActivity"
+            android:exported="false"
+            android:label="@string/title_activity_home"
+            android:theme="@style/Theme.Cse_emp_app" />
+        <activity
+            android:name=".login_feature.LoginActivity"
+            android:exported="false"
+            android:label="@string/title_activity_login"
+            android:theme="@style/Theme.Cse_emp_app" />
+        <activity
             android:name=".MainActivity"
             android:exported="true"
-            android:label="@string/app_name"
             android:theme="@style/Theme.Cse_emp_app">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

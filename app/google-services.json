@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "351466439023",
+    "project_id": "cse-emp-app",
+    "storage_bucket": "cse-emp-app.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:351466439023:android:86c912cd241c97a815a89a",
+        "android_client_info": {
+          "package_name": "com.keerthi77459.cse_emp_app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCe9heGfCtwNuSt7WHU_29KbJnsEA-1LWg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
