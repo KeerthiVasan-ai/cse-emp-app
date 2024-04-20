@@ -1,3 +1,8 @@
 <resources>
-    <string name="app_name">cse_emp_app</string>
+    <string name="app_name">Staff Sphere</string>
+    <string name="title_activity_login">LoginActivity</string>
+    <string name="title_activity_main">MainActivity</string>
+    <string name="title_activity_home">HomeActivity</string>
+    <string name="title_activity_personal_details">PersonalDetailsActivity</string>
+    <string name="title_activity_publication">PublicationActivity</string>
 </resources>

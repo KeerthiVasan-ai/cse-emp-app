@@ -1,17 +1,22 @@
-package com.keerthi77459.cse_emp_app
+package com.keerthi77459.cse_emp_app.main_features
 
-import android.content.Intent
+import android.content.Context
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
+import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import com.keerthi77459.cse_emp_app.login_feature.LoginActivity
+import androidx.compose.ui.tooling.preview.Preview
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
+import com.keerthi77459.cse_emp_app.core.navigation.NavigationMap
+import com.keerthi77459.cse_emp_app.main_features.presentation.screens.MainScreen
 import com.keerthi77459.cse_emp_app.ui.theme.Cse_emp_appTheme
 
-class MainActivity : ComponentActivity() {
+class HomeActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
@@ -20,9 +25,11 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    startActivity(Intent(this, LoginActivity::class.java))
+                    NavigationMap(this)
                 }
             }
         }
     }
 }
+
+
