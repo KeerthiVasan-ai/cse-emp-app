@@ -9,9 +9,14 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.shape.CornerSize
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowDropDown
+import androidx.compose.material.icons.filled.KeyboardArrowDown
 import androidx.compose.material.icons.filled.KeyboardArrowUp
+import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -22,6 +27,7 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.keerthi77459.cse_emp_app.core.styles.Styles
 import com.keerthi77459.cse_emp_app.publication_features.data.repository.ConferenceData
 import com.keerthi77459.cse_emp_app.publication_features.data.repository.ExpandableState
 import com.keerthi77459.cse_emp_app.publication_features.data.repository.JournalData
@@ -43,26 +49,35 @@ fun ExpandableScreen(state: ExpandableState) {
             state.data.onEachIndexed { index, entry ->
                 val isExpand = isExpandList[index]
                 item {
-                    Row(
+                    Card(
                         modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(8.dp)
-                            .clickable {
-                                isExpandList[index] = !isExpand
-                            }
+                            .padding(horizontal = 8.dp, vertical = 8.dp)
+                            .fillMaxWidth(),
+                        elevation = CardDefaults.cardElevation(2.dp),
+                        shape = RoundedCornerShape(corner = CornerSize(8.dp)),
                     ) {
-                        Text(
+                        Row(
                             modifier = Modifier
-                                .weight(1f),
-                            text = entry.key,
-                            fontWeight = FontWeight.Bold
-                        )
-                        Icon(
-                            imageVector = if (isExpand) Icons.Default.ArrowDropDown else Icons.Default.KeyboardArrowUp,
-                            contentDescription = "expand icon"
-                        )
+                                .fillMaxWidth()
+                                .padding(24.dp)
+                                .clickable {
+                                    isExpandList[index] = !isExpand
+                                }
+                        ) {
+                            Text(
+                                modifier = Modifier
+                                    .weight(1f),
+                                text = "List of ${entry.key}",
+                                style = Styles().mediumText1,
+                                fontWeight = FontWeight.Bold
+                            )
+                            Icon(
+                                imageVector = if (isExpand) Icons.Default.KeyboardArrowUp else Icons.Default.KeyboardArrowDown,
+                                contentDescription = "expand icon"
+                            )
 
 
+                        }
                     }
                 }
 
@@ -74,17 +89,13 @@ fun ExpandableScreen(state: ExpandableState) {
                             Row(
                                 modifier = Modifier
                                     .fillMaxWidth()
-                                    .padding(16.dp),
+                                    .padding(8.dp),
                             ) {
-                                Text(
-                                    text = when (it) {
-                                        is JournalData -> it.journalName
-                                        is ConferenceData -> it.conferenceName
-                                        is PatentData -> it.patentTitle
-                                        else -> ""
-                                    },
-                                    style = TextStyle(fontWeight = FontWeight.Bold)
-                                )
+                                when (it) {
+                                    is JournalData -> JournalDetailsView(it)
+                                    is ConferenceData -> ConferenceDetailsView(it)
+                                    is PatentData -> PatentDetailsView(it)
+                                }
                             }
                         }
                     }

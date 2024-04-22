@@ -27,6 +27,13 @@ import com.keerthi77459.cse_emp_app.publication_features.domain.services.InsertJ
 @Composable
 fun JournalScreen(navController: NavController, context: Context) {
 
+    var validateDetails by remember {
+        mutableStateOf(
+            listOf(
+                true, true, true, true, true, true, true, true
+            )
+        )
+    }
     var journalType by remember { mutableStateOf("") }
     var year by remember { mutableStateOf("") }
     var authorName by remember { mutableStateOf("") }
@@ -45,24 +52,28 @@ fun JournalScreen(navController: NavController, context: Context) {
     ) {
         journalType = buildDropDownMenu(
             label = "National / International",
-            menus = listOf("National", "International")
+            menus = listOf("National", "International"),
+            showError = !validateDetails[0]
         )
         Spacer(modifier = Modifier.height(8.dp))
         year = buildDropDownMenu(
             label = "Year",
-            menus = listOf("2021-2022", "2022-2023", "2023-2024", "2024-2025")
+            menus = listOf("2021-2022", "2022-2023", "2023-2024", "2024-2025"),
+            showError = !validateDetails[1]
         )
         Spacer(modifier = Modifier.height(8.dp))
         BuildTextField(
             value = authorName,
             onValueChange = { newValue -> authorName = newValue },
+            showError = !validateDetails[2],
             readOnly = false,
-            label = "Author Name"
+            label = "Author's Name"
         )
         Spacer(modifier = Modifier.height(8.dp))
         BuildTextField(
             value = journalName,
             onValueChange = { newValue -> journalName = newValue },
+            showError = !validateDetails[3],
             readOnly = false,
             label = "Journal Name"
         )
@@ -70,6 +81,7 @@ fun JournalScreen(navController: NavController, context: Context) {
         BuildTextField(
             value = volNo,
             onValueChange = { newValue -> volNo = newValue },
+            showError = !validateDetails[4],
             readOnly = false,
             label = "Volume Number"
         )
@@ -77,33 +89,75 @@ fun JournalScreen(navController: NavController, context: Context) {
         BuildTextField(
             value = issueNo,
             onValueChange = { newValue -> issueNo = newValue },
+            showError = !validateDetails[5],
             readOnly = false,
             label = "Issue Number"
         )
         Spacer(modifier = Modifier.height(8.dp))
         indexed = buildDropDownMenu(
             label = "Indexed",
-            menus = listOf("IEEE", "SCOPUS", "SCI", "UGC CARE", "WOS", "Others")
+            menus = listOf("IEEE", "SCOPUS", "SCI", "UGC CARE", "WOS", "Others"),
+            showError = !validateDetails[6]
         )
         Spacer(modifier = Modifier.height(8.dp))
         BuildTextField(
             value = issnNo,
             onValueChange = { newValue -> issnNo = newValue },
+            showError = !validateDetails[7],
             readOnly = false,
             label = "ISSN Number"
         )
         Spacer(modifier = Modifier.height(8.dp))
         BuildButton {
-            InsertJournalDetails(context).insertJournalDetails(
-                JournalData(
-                    authorName,
-                    journalName,
-                    volNo,
-                    issueNo,
-                    indexed, issnNo
-                )
+            validateDetails = validate(
+                journalType = journalType,
+                year = year,
+                authorName = authorName,
+                journalName = journalName,
+                volNo = volNo,
+                issueNo = issueNo,
+                indexed = indexed,
+                issnNo = issnNo
             )
-            navController.navigate(NavigationScreen.MainScreen.route)
+            val isValidated = validateDetails.all { it }
+            if (isValidated) {
+                InsertJournalDetails(context).insertJournalDetails(
+                    JournalData(
+                        authorName,
+                        journalName,
+                        volNo,
+                        issueNo,
+                        indexed, issnNo
+                    )
+                )
+                navController.navigate(NavigationScreen.PublicationView.route) {
+                    popUpTo(NavigationScreen.PublicationView.route) {
+                        inclusive = true
+                    }
+                }
+            }
         }
     }
+}
+
+fun validate(
+    journalType: String,
+    year: String,
+    authorName: String,
+    journalName: String,
+    volNo: String,
+    issueNo: String,
+    indexed: String,
+    issnNo: String
+): List<Boolean> {
+    return listOf(
+        journalType.isNotBlank(),
+        year.isNotBlank(),
+        authorName.isNotBlank(),
+        journalName.isNotBlank(),
+        volNo.isNotBlank(),
+        issueNo.isNotBlank(),
+        indexed.isNotBlank(),
+        issnNo.isNotBlank()
+    )
 }
