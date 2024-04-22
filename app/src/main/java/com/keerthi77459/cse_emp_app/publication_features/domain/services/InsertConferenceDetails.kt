@@ -13,7 +13,8 @@ class InsertConferenceDetails(val context: Context) {
         println(conferenceData.paperTitle)
         println(conferenceData.conferenceName)
         println(conferenceData.conducted)
-        println(conferenceData.date)
+        println(conferenceData.startDate)
+        println(conferenceData.endDate)
         println(conferenceData.proceedingName)
         println(conferenceData.issnNo)
 
@@ -31,7 +32,7 @@ class InsertConferenceDetails(val context: Context) {
         reference.set(conferenceData).addOnSuccessListener {
             println("SUCCESS")
             Toast.makeText(context, "Data Inserted Successfully", Toast.LENGTH_LONG).show()
-        }.addOnFailureListener{e->
+        }.addOnFailureListener { e ->
             println(e.stackTrace)
         }
     }

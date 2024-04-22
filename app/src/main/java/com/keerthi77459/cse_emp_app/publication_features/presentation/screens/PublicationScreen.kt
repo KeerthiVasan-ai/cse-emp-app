@@ -2,8 +2,11 @@ package com.keerthi77459.cse_emp_app.publication_features.presentation.screens
 
 import android.annotation.SuppressLint
 import android.content.Context
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
@@ -19,6 +22,7 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.keerthi77459.cse_emp_app.core.components.BuildAppBar
 import com.keerthi77459.cse_emp_app.core.components.buildDropDownMenu
+import com.keerthi77459.cse_emp_app.core.styles.Styles
 import com.keerthi77459.cse_emp_app.publication_features.presentation.components.ConferenceScreen
 import com.keerthi77459.cse_emp_app.publication_features.presentation.components.JournalScreen
 import com.keerthi77459.cse_emp_app.publication_features.presentation.components.PatentScreen
@@ -37,7 +41,10 @@ fun PublicationScreen(navController: NavController, context: Context) {
         }
     ) { paddingValue ->
         Column(
-            modifier = Modifier.padding(paddingValues = paddingValue),
+            modifier = Modifier
+                .fillMaxSize()
+                .background(brush = Styles().background)
+                .padding(paddingValues = paddingValue),
             verticalArrangement = Arrangement.spacedBy(16.dp),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {

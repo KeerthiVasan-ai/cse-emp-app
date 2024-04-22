@@ -67,7 +67,7 @@ fun JournalScreen(navController: NavController, context: Context) {
             onValueChange = { newValue -> authorName = newValue },
             showError = !validateDetails[2],
             readOnly = false,
-            label = "Author's Name"
+            label = "Authors Name"
         )
         Spacer(modifier = Modifier.height(8.dp))
         BuildTextField(
