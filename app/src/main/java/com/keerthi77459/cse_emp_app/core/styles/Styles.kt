@@ -1,5 +1,6 @@
 package com.keerthi77459.cse_emp_app.core.styles
 
+import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontFamily
@@ -8,6 +9,8 @@ import androidx.compose.ui.text.googlefonts.Font
 import androidx.compose.ui.text.googlefonts.GoogleFont
 import androidx.compose.ui.unit.sp
 import com.keerthi77459.cse_emp_app.R
+import com.keerthi77459.cse_emp_app.ui.theme.c1
+import com.keerthi77459.cse_emp_app.ui.theme.c2
 
 class Styles {
 
@@ -57,5 +60,9 @@ class Styles {
             Font(googleFont = GoogleFont(name = "EB Garamond"), fontProvider = provider)
         ),
         fontSize = 16.sp
+    )
+
+    val background = Brush.linearGradient(
+        colors = listOf(c2,c1, c2)
     )
 }
