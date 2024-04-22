@@ -14,17 +14,16 @@ class FetchPersonalDetails {
                     val queryDocumentSnapshots = task.result
                     if (queryDocumentSnapshots != null && queryDocumentSnapshots.exists()) {
                         val data = queryDocumentSnapshots.data
-                        val tokenNumber = data?.get("Staff_id").toString()
+                        val tokenNumber = data?.get("tokenNumber").toString()
                         val name = data?.get("name").toString()
                         val designation = data?.get("designation").toString()
                         val qualification = data?.get("qualification").toString()
-                        val dob = data?.get("date_of_birth").toString()
+                        val dob = data?.get("dob").toString()
                         val specialization = data?.get("specialization").toString()
-                        val presentAddress = data?.get("present_address").toString()
-                        val address = data?.get("permanent_address").toString()
-                        val phoneNumber = data?.get("contact_number").toString()
-                        val bloodGroup = data?.get("blood_group").toString()
-
+                        val presentAddress = data?.get("presentAddress").toString()
+                        val address = data?.get("address").toString()
+                        val phoneNumber = data?.get("phoneNumber").toString()
+                        val bloodGroup = data?.get("bloodGroup").toString()
 
                         val personalDetailsData = PersonalDetailsData(
                             tokenNumber = tokenNumber,
