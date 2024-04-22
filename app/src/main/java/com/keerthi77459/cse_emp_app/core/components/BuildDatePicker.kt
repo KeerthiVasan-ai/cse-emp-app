@@ -5,9 +5,12 @@ import android.widget.DatePicker
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.offset
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.DateRange
 import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -21,11 +24,18 @@ import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.toSize
 import java.util.Calendar
 
 @Composable
-fun buildDatePicker(date: String, label: String, isEditing: Boolean): String {
+fun buildDatePicker(
+    date: String,
+    label: String,
+    isEditing: Boolean,
+    showError: Boolean,
+    errorMessage: String = "Required Field"
+): String {
     val mContext = LocalContext.current
     val mCalendar = Calendar.getInstance()
     val selectedDate = remember { mutableStateOf(TextFieldValue(date)) }
@@ -47,6 +57,7 @@ fun buildDatePicker(date: String, label: String, isEditing: Boolean): String {
             value = selectedDate.value,
             onValueChange = { selectedDate.value = it },
             readOnly = true,
+            isError = showError,
             modifier = Modifier
                 .fillMaxWidth()
                 .onGloballyPositioned { coordinates ->
@@ -54,13 +65,24 @@ fun buildDatePicker(date: String, label: String, isEditing: Boolean): String {
                 },
             label = { Text(label) },
             trailingIcon = {
-                if(isEditing) {
+                if (isEditing) {
                     Icon(
                         Icons.Outlined.DateRange, "contentDescription",
                         Modifier.clickable { mDatePickerDialog.show() })
                 }
             }
         )
+        if (showError) {
+            Text(
+                text = errorMessage,
+                color = MaterialTheme.colorScheme.error,
+                style = MaterialTheme.typography.labelMedium,
+                modifier = Modifier
+                    .padding(vertical = 8.dp)
+                    .offset(y = (8).dp)
+                    .fillMaxWidth(0.9f)
+            )
+        }
     }
     return selectedDate.value.text
 }
@@ -68,5 +90,5 @@ fun buildDatePicker(date: String, label: String, isEditing: Boolean): String {
 @Preview(showBackground = true)
 @Composable
 fun DefaultPreview() {
-    buildDatePicker("21-01-2023", "Date",false)
+    buildDatePicker("21-01-2023", "Date", isEditing = false, showError = true)
 }

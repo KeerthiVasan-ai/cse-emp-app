@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.outlined.Add
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
@@ -17,7 +18,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
-import com.keerthi77459.cse_emp_app.R
 import com.keerthi77459.cse_emp_app.core.components.BuildAppBar
 import com.keerthi77459.cse_emp_app.core.components.BuildFloatingActionButton
 import com.keerthi77459.cse_emp_app.core.navigation.NavigationScreen
@@ -36,17 +36,17 @@ fun PublicationView(navController: NavController) {
     var conferenceDetails by remember { mutableStateOf<List<ConferenceData>>(listOf()) }
     var patentDetails by remember { mutableStateOf<List<PatentData>>(listOf()) }
 
-    LaunchedEffect(UInt) {
+    LaunchedEffect(Unit) {
         FetchPublicationDetails().fetchJournalDetails(
-            onSuccess = {journalDetails = it},
+            onSuccess = { journalDetails = it },
             onFailure = {}
         )
         FetchPublicationDetails().fetchConferenceDetails(
-            onSuccess = {conferenceDetails = it},
+            onSuccess = { conferenceDetails = it },
             onFailure = {}
         )
         FetchPublicationDetails().fetchPatentDetails(
-            onSuccess = {patentDetails = it},
+            onSuccess = { patentDetails = it },
             onFailure = {}
         )
     }
@@ -59,12 +59,13 @@ fun PublicationView(navController: NavController) {
         topBar = {
             BuildAppBar(
                 title = "Publications",
-                icon = R.drawable.baseline_edit_note_24
+                showIcon = false,
+                icon = Icons.Filled.Add
             ) {}
         },
         floatingActionButton = {
             BuildFloatingActionButton(icon = Icons.Outlined.Add) {
-                navController.navigate(NavigationScreen.PublicationDetailsScreen.route)
+                navController.navigate(NavigationScreen.PublicationScreen.route)
             }
         }
     ) { paddingValue ->
@@ -74,7 +75,13 @@ fun PublicationView(navController: NavController) {
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             println(patentDetails.size)
-            ExpandableScreen(state = ExpandableState(journalDetails,conferenceDetails,patentDetails))
+            ExpandableScreen(
+                state = ExpandableState(
+                    journalDetails,
+                    conferenceDetails,
+                    patentDetails
+                )
+            )
         }
     }
 }

@@ -28,6 +28,14 @@ import com.keerthi77459.cse_emp_app.publication_features.domain.services.InsertC
 @Composable
 fun ConferenceScreen(navController: NavController, context: Context) {
 
+    var validateDetails by remember {
+        mutableStateOf(
+            listOf(
+                true, true, true, true, true,
+                true, true, true, true
+            )
+        )
+    }
     var conferenceType by remember { mutableStateOf("") }
     var year by remember { mutableStateOf("") }
     var authorName by remember { mutableStateOf("") }
@@ -48,24 +56,28 @@ fun ConferenceScreen(navController: NavController, context: Context) {
     ) {
         conferenceType = buildDropDownMenu(
             label = "National / International",
-            menus = listOf("National", "International")
+            menus = listOf("National", "International"),
+            showError = !validateDetails[0]
         )
         Spacer(modifier = Modifier.height(8.dp))
         year = buildDropDownMenu(
             label = "Year",
-            menus = listOf("2021-2022", "2022-2023", "2023-2024", "2024-2025")
+            menus = listOf("2021-2022", "2022-2023", "2023-2024", "2024-2025"),
+            showError = !validateDetails[1]
         )
         Spacer(modifier = Modifier.height(8.dp))
         BuildTextField(
             value = authorName,
             onValueChange = { authorName = it },
+            showError = !validateDetails[2],
             readOnly = false,
-            label = "Author Name"
+            label = "Author's Name"
         )
         Spacer(modifier = Modifier.height(8.dp))
         BuildTextField(
             value = title,
             onValueChange = { title = it },
+            showError = !validateDetails[3],
             readOnly = false,
             label = "Title of the Paper"
         )
@@ -73,6 +85,7 @@ fun ConferenceScreen(navController: NavController, context: Context) {
         BuildTextField(
             value = conferenceName,
             onValueChange = { conferenceName = it },
+            showError = !validateDetails[4],
             readOnly = false,
             label = "Conference Name"
         )
@@ -80,6 +93,7 @@ fun ConferenceScreen(navController: NavController, context: Context) {
         BuildTextField(
             value = conducted,
             onValueChange = { conducted = it },
+            showError = !validateDetails[5],
             readOnly = false,
             label = "Conference Conducted By"
         )
@@ -87,12 +101,14 @@ fun ConferenceScreen(navController: NavController, context: Context) {
         conferenceDate = buildDatePicker(
             date = conferenceDate,
             label = "Conference Date",
+            showError = !validateDetails[6],
             isEditing = true
         )
         Spacer(modifier = Modifier.height(8.dp))
         BuildTextField(
             value = proceedingName,
             onValueChange = { proceedingName = it },
+            showError = !validateDetails[7],
             readOnly = false,
             label = "Conference Proceeding Name"
         )
@@ -100,23 +116,66 @@ fun ConferenceScreen(navController: NavController, context: Context) {
         BuildTextField(
             value = issnNo,
             onValueChange = { issnNo = it },
+            showError = !validateDetails[8],
             readOnly = false,
             label = "ISSN/ISBN Number"
         )
         Spacer(modifier = Modifier.height(8.dp))
         BuildButton {
-            InsertConferenceDetails(context).insertConferenceDetails(
-                ConferenceData(
-                    authorName,
-                    title,
-                    conferenceName,
-                    conducted,
-                    conferenceDate,
-                    proceedingName,
-                    issnNo
-                )
+            validateDetails = validate(
+                conferenceType = conferenceType,
+                year = year,
+                authorName = authorName,
+                title = title,
+                conferenceName = conferenceName,
+                conducted = conducted,
+                conferenceDate = conferenceDate,
+                proceedingName = proceedingName,
+                issnNo = issnNo
             )
-            navController.navigate(NavigationScreen.MainScreen.route)
+            val isValidated = validateDetails.all { it }
+            if (isValidated) {
+                InsertConferenceDetails(context).insertConferenceDetails(
+                    ConferenceData(
+                        authorName,
+                        title,
+                        conferenceName,
+                        conducted,
+                        conferenceDate,
+                        proceedingName,
+                        issnNo
+                    )
+                )
+                navController.navigate(NavigationScreen.PublicationView.route) {
+                    popUpTo(NavigationScreen.PublicationView.route) {
+                        inclusive = true
+                    }
+                }
+            }
         }
     }
+}
+
+fun validate(
+    conferenceType: String,
+    year: String,
+    authorName: String,
+    title: String,
+    conferenceName: String,
+    conducted: String,
+    conferenceDate: String,
+    proceedingName: String,
+    issnNo: String
+): List<Boolean> {
+    return listOf(
+        conferenceType.isNotBlank(),
+        year.isNotBlank(),
+        authorName.isNotBlank(),
+        title.isNotBlank(),
+        conferenceDate.isNotBlank(),
+        conferenceName.isNotBlank(),
+        conducted.isNotBlank(),
+        proceedingName.isNotBlank(),
+        issnNo.isNotBlank()
+    )
 }

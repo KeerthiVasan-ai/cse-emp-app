@@ -5,6 +5,8 @@ import android.content.Context
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Add
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -15,7 +17,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
-import com.keerthi77459.cse_emp_app.R
 import com.keerthi77459.cse_emp_app.core.components.BuildAppBar
 import com.keerthi77459.cse_emp_app.core.components.buildDropDownMenu
 import com.keerthi77459.cse_emp_app.publication_features.presentation.components.ConferenceScreen
@@ -30,7 +31,8 @@ fun PublicationScreen(navController: NavController, context: Context) {
         topBar = {
             BuildAppBar(
                 title = "Publication Details Form",
-                icon = R.drawable.baseline_edit_note_24
+                showIcon = false,
+                icon = Icons.Filled.Add
             ) {}
         }
     ) { paddingValue ->

@@ -11,6 +11,8 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Add
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Scaffold
@@ -21,21 +23,30 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.keerthi77459.cse_emp_app.R
+import androidx.navigation.NavController
 import com.keerthi77459.cse_emp_app.core.components.BuildAppBar
 import com.keerthi77459.cse_emp_app.core.components.BuildButton
 import com.keerthi77459.cse_emp_app.core.components.BuildTextField
 import com.keerthi77459.cse_emp_app.core.components.buildDatePicker
+import com.keerthi77459.cse_emp_app.core.navigation.NavigationScreen
 import com.keerthi77459.cse_emp_app.online_courses_feature.data.OnlineCoursesData
 import com.keerthi77459.cse_emp_app.online_courses_feature.domain.services.InsertOnlineCourseDetails
 
-@Preview
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
-fun OnlineCoursesScreen() {
+fun OnlineCoursesScreen(navController: NavController) {
 
+    var validateDetails by remember {
+        mutableStateOf(
+            listOf(
+                true,
+                true,
+                true,
+                true
+            )
+        )
+    }
     var course by remember { mutableStateOf("") }
     var offered by remember { mutableStateOf("") }
     var startDate by remember { mutableStateOf("") }
@@ -45,7 +56,8 @@ fun OnlineCoursesScreen() {
         topBar = {
             BuildAppBar(
                 title = "Online Course Details Form",
-                icon = R.drawable.baseline_edit_note_24
+                showIcon = false,
+                icon = Icons.Filled.Add
             ) {}
         }
     ) {
@@ -69,6 +81,7 @@ fun OnlineCoursesScreen() {
                     BuildTextField(
                         value = course,
                         onValueChange = { course = it },
+                        showError = !validateDetails[0],
                         readOnly = false,
                         label = "Name of the Course"
                     )
@@ -76,6 +89,7 @@ fun OnlineCoursesScreen() {
                     BuildTextField(
                         value = offered,
                         onValueChange = { offered = it },
+                        showError = !validateDetails[1],
                         readOnly = false,
                         label = "Course Offered By"
                     )
@@ -86,7 +100,9 @@ fun OnlineCoursesScreen() {
                     ) {
                         Box(Modifier.weight(1f)) {
                             startDate = buildDatePicker(
-                                date = "", label = "Start Date",
+                                date = "",
+                                label = "Start Date",
+                                showError = !validateDetails[2],
                                 isEditing = true
                             )
                         }
@@ -94,23 +110,47 @@ fun OnlineCoursesScreen() {
                         Box(Modifier.weight(1f)) {
                             endDate = buildDatePicker(
                                 date = "", label = "End Date",
+                                showError = !validateDetails[3],
                                 isEditing = true
                             )
                         }
                     }
                     Spacer(modifier = Modifier.height(8.dp))
                     BuildButton {
-                        InsertOnlineCourseDetails().insertOnlineCourseDetails(
-                            OnlineCoursesData(
-                                course,
-                                offered,
-                                startDate,
-                                endDate
-                            )
+                        validateDetails = validate(
+                            course = course,
+                            offered = offered,
+                            startDate = startDate,
+                            endDate = endDate
                         )
+                        val isValidated = validateDetails.all { it }
+                        if (isValidated) {
+                            InsertOnlineCourseDetails().insertOnlineCourseDetails(
+                                OnlineCoursesData(
+                                    course,
+                                    offered,
+                                    startDate,
+                                    endDate
+                                )
+                            )
+                            navController.navigate(NavigationScreen.OnlineCoursesView.route) {
+                                popUpTo(NavigationScreen.OnlineCoursesView.route) {
+                                    inclusive = true
+                                }
+                            }
+                        }
                     }
                 }
             }
         }
     }
+}
+
+fun validate(course: String, offered: String, startDate: String, endDate: String): List<Boolean> {
+    return listOf(
+        course.isNotBlank(),
+        offered.isNotBlank(),
+        startDate.isNotBlank(),
+        endDate.isNotBlank()
+    )
 }

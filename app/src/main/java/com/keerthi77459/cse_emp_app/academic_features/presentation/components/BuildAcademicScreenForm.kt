@@ -23,15 +23,8 @@ fun AcademicScreenForm(
     meGuide: String,
     phdGuided: String,
 
-    seminarConducted: String,
-    workshopConducted: String,
-    fdpConducted: String,
-    sttpConducted: String,
-
-    seminarAttended: String,
-    workshopAttended: String,
-    fdpAttended: String,
-    sttpAttended: String
+    conductedCount: String,
+    attendedCount: String,
 ) {
 
 
@@ -77,59 +70,17 @@ fun AcademicScreenForm(
         )
         Spacer(modifier = Modifier.height(8.dp))
         BuildTextField(
-            value = seminarConducted,
+            value = conductedCount,
             onValueChange = {},
             readOnly = true,
-            label = "Seminars Conducted"
+            label = "Seminars/Workshop/FDP/STTP Conducted"
         )
         Spacer(modifier = Modifier.height(8.dp))
         BuildTextField(
-            value = workshopConducted,
+            value = attendedCount,
             onValueChange = {},
             readOnly = true,
-            label = "Workshops Conducted"
-        )
-        Spacer(modifier = Modifier.height(8.dp))
-        BuildTextField(
-            value = fdpConducted,
-            onValueChange = {},
-            readOnly = true,
-            label = "FDP Conducted"
-        )
-        Spacer(modifier = Modifier.height(8.dp))
-        BuildTextField(
-            value = sttpConducted,
-            onValueChange = {},
-            readOnly = true,
-            label = "STTP Conducted"
-        )
-        Spacer(modifier = Modifier.height(8.dp))
-        BuildTextField(
-            value = seminarAttended,
-            onValueChange = {},
-            readOnly = true,
-            label = "Seminars Attended"
-        )
-        Spacer(modifier = Modifier.height(8.dp))
-        BuildTextField(
-            value = workshopAttended,
-            onValueChange = {},
-            readOnly = true,
-            label = "Workshops Attended"
-        )
-        Spacer(modifier = Modifier.height(8.dp))
-        BuildTextField(
-            value = fdpAttended,
-            onValueChange = {},
-            readOnly = true,
-            label = "FDP Attended"
-        )
-        Spacer(modifier = Modifier.height(8.dp))
-        BuildTextField(
-            value = sttpAttended,
-            onValueChange = {},
-            readOnly = true,
-            label = "STTP Attended"
+            label = "Seminars/Workshop/FDP/STTP Attended"
         )
         Spacer(modifier = Modifier.height(8.dp))
     }
@@ -141,7 +92,6 @@ fun AcademicScreenForm(
 fun AcademicScreenFormPreview() {
     AcademicScreenForm(
         "", "", "", "", "",
-        "", "", "", "", "", "", "",
-        ""
+        "", ""
     )
 }

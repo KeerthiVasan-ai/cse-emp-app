@@ -1,7 +1,6 @@
 package com.keerthi77459.cse_emp_app.publication_features.presentation.components
 
 import android.content.Context
-import android.widget.Toast
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -28,6 +27,14 @@ import com.keerthi77459.cse_emp_app.publication_features.domain.services.InsertP
 
 @Composable
 fun PatentScreen(navController: NavController, context: Context) {
+
+    var validateDetails by remember {
+        mutableStateOf(
+            listOf(
+                true, true, true, true
+            )
+        )
+    }
     var fileNo by remember { mutableStateOf("") }
     var title by remember { mutableStateOf("") }
     var date by remember { mutableStateOf("") }
@@ -44,33 +51,58 @@ fun PatentScreen(navController: NavController, context: Context) {
             value = fileNo,
             onValueChange = { fileNo = it },
             readOnly = false,
+            showError = !validateDetails[0],
             label = "Patent's File No"
         )
         Spacer(modifier = Modifier.height(8.dp))
         BuildTextField(
             value = title,
             onValueChange = { title = it },
+            showError = !validateDetails[1],
             readOnly = false,
             label = "Title of the Work"
         )
         Spacer(modifier = Modifier.height(8.dp))
-        date = buildDatePicker(date = date, label = "Date of Application", isEditing = true)
+        date = buildDatePicker(
+            date = date,
+            label = "Date of Application",
+            showError = !validateDetails[2],
+            isEditing = true
+        )
         Spacer(modifier = Modifier.height(8.dp))
         status = buildDropDownMenu(
             label = "Status",
-            menus = listOf("Approved", "Waiting", "Rejected")
+            menus = listOf("Approved", "Waiting", "Rejected"),
+            showError = !validateDetails[3]
         )
         Spacer(modifier = Modifier.height(8.dp))
         BuildButton {
-            InsertPatentDetails(context).insertPatentDetails(
-                PatentData(
-                    fileNo,
-                    title,
-                    date,
-                    status
+            validateDetails = validate(fileNo = fileNo, title = title, date = date, status = status)
+            val isValidated = validateDetails.all { it }
+            if (isValidated) {
+                InsertPatentDetails(context).insertPatentDetails(
+                    PatentData(
+                        fileNo,
+                        title,
+                        date,
+                        status
+                    )
                 )
-            )
-            navController.navigate(NavigationScreen.MainScreen.route)
+                navController.navigate(NavigationScreen.PublicationView.route) {
+                    popUpTo(NavigationScreen.PublicationView.route) {
+                        inclusive = true
+                    }
+                }
+            }
         }
     }
+}
+
+fun validate(fileNo: String, title: String, date: String, status: String): List<Boolean> {
+    return listOf(
+        fileNo.isNotBlank(),
+        title.isNotBlank(),
+        date.isNotBlank(),
+        status.isNotBlank()
+    )
 }
