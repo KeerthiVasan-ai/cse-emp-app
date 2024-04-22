@@ -6,23 +6,28 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.itemsIndexed
-import androidx.compose.foundation.lazy.itemsIndexed
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.Logout
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
-import com.keerthi77459.cse_emp_app.R
 import com.keerthi77459.cse_emp_app.core.components.BuildAppBar
-import com.keerthi77459.cse_emp_app.core.components.BuildTextField
+import com.keerthi77459.cse_emp_app.core.navigation.NavigationScreen
+import com.keerthi77459.cse_emp_app.core.styles.Styles
 import com.keerthi77459.cse_emp_app.login_feature.data.api.Auth
 import com.keerthi77459.cse_emp_app.main_features.domain.model.MenuModel
+import com.keerthi77459.cse_emp_app.main_features.domain.services.FetchUserDetails
 import com.keerthi77459.cse_emp_app.main_features.presentation.components.BuildGridItems
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
@@ -30,10 +35,25 @@ import com.keerthi77459.cse_emp_app.main_features.presentation.components.BuildG
 fun MainScreen(context: Context, navController: NavController) {
 
     val auth = Auth().auth
+    var name by remember { mutableStateOf("") }
+    LaunchedEffect(Unit) {
+        FetchUserDetails().fetchUserName(
+            onSuccess = { name = it },
+            onFailure = {}
+        )
+    }
+
     Scaffold(
         topBar = {
-            BuildAppBar(title = "Staff Sphere", icon = R.drawable.baseline_logout_24) {
+            BuildAppBar(
+                title = "Staff Sphere",
+                showIcon = true,
+                icon = Icons.AutoMirrored.Filled.Logout
+            ) {
                 auth.signOut()
+                navController.navigate(NavigationScreen.LoginScreen.route) {
+                    popUpTo(0) {}
+                }
             }
         },
     ) {
@@ -42,8 +62,8 @@ fun MainScreen(context: Context, navController: NavController) {
             verticalArrangement = Arrangement.spacedBy(16.dp),
         ) {
             Text(
-                "Welcome ${auth.uid}",
-                fontSize = 24.sp,
+                "Welcome! $name",
+                style = Styles().bigText,
                 modifier = Modifier.padding(top = 24.dp, start = 16.dp)
             )
             LazyVerticalGrid(
