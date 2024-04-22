@@ -1,6 +1,7 @@
 package com.keerthi77459.cse_emp_app.online_courses_feature.presentation.screens
 
 import android.annotation.SuppressLint
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -30,6 +31,7 @@ import com.keerthi77459.cse_emp_app.core.components.BuildButton
 import com.keerthi77459.cse_emp_app.core.components.BuildTextField
 import com.keerthi77459.cse_emp_app.core.components.buildDatePicker
 import com.keerthi77459.cse_emp_app.core.navigation.NavigationScreen
+import com.keerthi77459.cse_emp_app.core.styles.Styles
 import com.keerthi77459.cse_emp_app.online_courses_feature.data.OnlineCoursesData
 import com.keerthi77459.cse_emp_app.online_courses_feature.domain.services.InsertOnlineCourseDetails
 
@@ -63,6 +65,7 @@ fun OnlineCoursesScreen(navController: NavController) {
     ) {
         Box(
             modifier = Modifier
+                .background(brush = Styles().background)
                 .fillMaxSize(),
             contentAlignment = Alignment.Center
         ) {

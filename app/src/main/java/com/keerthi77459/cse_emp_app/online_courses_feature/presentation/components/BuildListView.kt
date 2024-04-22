@@ -25,7 +25,7 @@ import com.keerthi77459.cse_emp_app.online_courses_feature.data.OnlineCoursesDat
 fun BuildListView(onlineCoursesData: OnlineCoursesData) {
     Card(
         modifier = Modifier
-            .padding(horizontal = 8.dp, vertical = 8.dp)
+            .padding(start = 16.dp, end = 16.dp, top = 8.dp)
             .fillMaxWidth(),
         elevation = CardDefaults.cardElevation(2.dp),
         colors = CardDefaults.cardColors(Color.White),
