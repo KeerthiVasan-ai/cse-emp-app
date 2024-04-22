@@ -29,8 +29,7 @@ import com.keerthi77459.cse_emp_app.R
 import com.keerthi77459.cse_emp_app.core.components.BuildDivider
 import com.keerthi77459.cse_emp_app.login_feature.domain.model.InputType
 import com.keerthi77459.cse_emp_app.login_feature.domain.view_model.LoginViewModel
-import com.keerthi77459.cse_emp_app.login_feature.presentation.components.BuildButton
-import com.keerthi77459.cse_emp_app.login_feature.presentation.components.buildTextField
+import com.keerthi77459.cse_emp_app.login_feature.presentation.components.BuildTextField
 
 @Composable
 fun LoginScreen(loginViewModel: LoginViewModel) {
@@ -38,6 +37,11 @@ fun LoginScreen(loginViewModel: LoginViewModel) {
     val focusManager = LocalFocusManager.current
     var userName by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
+
+    var validateDetailsList by remember { mutableStateOf(listOf(true, true)) }
+
+    var isPasswordVisible by remember { mutableStateOf(false) }
+
     Column(
         Modifier
             .padding(24.dp)
@@ -51,13 +55,34 @@ fun LoginScreen(loginViewModel: LoginViewModel) {
                 .clip(RoundedCornerShape(30.dp)),
             contentScale = ContentScale.Crop
         )
-        userName = buildTextField(InputType.Name, keyboardActions = KeyboardActions(onNext = {
-            passwordFocusRequester.requestFocus()
-        }))
-        password = buildTextField(InputType.Password, keyboardActions = KeyboardActions(onNext = {
-            focusManager.clearFocus()
-        }), focusRequester = passwordFocusRequester)
-        BuildButton(loginViewModel, userName, password)
+        BuildTextField(
+            value = userName,
+            onValueChanged = { userName = it },
+            inputType = InputType.Name,
+            showError = !validateDetailsList[0],
+            keyboardActions = KeyboardActions(onNext = {
+                passwordFocusRequester.requestFocus()
+            })
+        )
+        BuildTextField(
+            value = password,
+            onValueChanged = { password = it },
+            inputType = InputType.Password,
+            isPasswordField = true,
+            showError = !validateDetailsList[1],
+            isPasswordVisible = isPasswordVisible,
+            onVisibilityChange = { isPasswordVisible = it },
+            keyboardActions = KeyboardActions(onNext = {
+                focusManager.clearFocus()
+            }), focusRequester = passwordFocusRequester
+        )
+        com.keerthi77459.cse_emp_app.core.components.BuildButton {
+            validateDetailsList = validate(userName, password)
+            if ((validateDetailsList[0] && validateDetailsList[1])) {
+                loginViewModel.login(userName,password)
+            }
+        }
+//        BuildButton(loginViewModel, userName, password)
         BuildDivider()
         Row(verticalAlignment = Alignment.CenterVertically) {
             Text("Forget your credentials?", color = Color.Black)
@@ -66,4 +91,15 @@ fun LoginScreen(loginViewModel: LoginViewModel) {
             }
         }
     }
+}
+
+
+fun validate(userName: String, password: String): List<Boolean> {
+    var validateUserNameCheck by mutableStateOf(true)
+    var validatePasswordCheck by mutableStateOf(true)
+
+    validateUserNameCheck = userName.isNotBlank()
+    validatePasswordCheck = password.isNotBlank()
+
+    return listOf(validateUserNameCheck, validatePasswordCheck)
 }
