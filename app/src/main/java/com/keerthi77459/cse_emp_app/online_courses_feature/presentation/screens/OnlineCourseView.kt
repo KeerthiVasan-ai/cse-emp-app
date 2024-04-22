@@ -1,8 +1,10 @@
 package com.keerthi77459.cse_emp_app.online_courses_feature.presentation.screens
 
 import android.annotation.SuppressLint
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
@@ -21,6 +23,7 @@ import androidx.navigation.NavController
 import com.keerthi77459.cse_emp_app.core.components.BuildAppBar
 import com.keerthi77459.cse_emp_app.core.components.BuildFloatingActionButton
 import com.keerthi77459.cse_emp_app.core.navigation.NavigationScreen
+import com.keerthi77459.cse_emp_app.core.styles.Styles
 import com.keerthi77459.cse_emp_app.online_courses_feature.data.OnlineCoursesData
 import com.keerthi77459.cse_emp_app.online_courses_feature.domain.services.FetchOnlineCourseDetails
 import com.keerthi77459.cse_emp_app.online_courses_feature.presentation.components.BuildListView
@@ -58,7 +61,10 @@ fun OnlineCoursesView(navController: NavController) {
         }
     ) {
         Column(
-            modifier = Modifier.padding(it),
+            modifier = Modifier
+                .fillMaxSize()
+                .background(brush = Styles().background)
+                .padding(it),
             verticalArrangement = Arrangement.spacedBy(16.dp),
         ) {
             LazyColumn {

@@ -14,7 +14,8 @@ data class ConferenceData(
     var paperTitle: String,
     var conferenceName: String,
     var conducted: String,
-    var date: String,
+    var startDate: String,
+    var endDate: String,
     var proceedingName: String,
     var issnNo: String
 )

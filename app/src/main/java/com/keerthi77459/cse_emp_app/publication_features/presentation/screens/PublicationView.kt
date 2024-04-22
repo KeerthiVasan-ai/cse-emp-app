@@ -1,6 +1,7 @@
 package com.keerthi77459.cse_emp_app.publication_features.presentation.screens
 
 import android.annotation.SuppressLint
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
@@ -21,6 +22,7 @@ import androidx.navigation.NavController
 import com.keerthi77459.cse_emp_app.core.components.BuildAppBar
 import com.keerthi77459.cse_emp_app.core.components.BuildFloatingActionButton
 import com.keerthi77459.cse_emp_app.core.navigation.NavigationScreen
+import com.keerthi77459.cse_emp_app.core.styles.Styles
 import com.keerthi77459.cse_emp_app.publication_features.data.repository.ConferenceData
 import com.keerthi77459.cse_emp_app.publication_features.data.repository.ExpandableState
 import com.keerthi77459.cse_emp_app.publication_features.data.repository.JournalData
@@ -70,7 +72,9 @@ fun PublicationView(navController: NavController) {
         }
     ) { paddingValue ->
         Column(
-            modifier = Modifier.padding(paddingValues = paddingValue),
+            modifier = Modifier
+                .background(brush = Styles().background)
+                .padding(paddingValues = paddingValue),
             verticalArrangement = Arrangement.spacedBy(16.dp),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {

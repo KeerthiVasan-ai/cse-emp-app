@@ -2,10 +2,13 @@ package com.keerthi77459.cse_emp_app.publication_features.presentation.component
 
 import android.content.Context
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.runtime.Composable
@@ -32,7 +35,7 @@ fun ConferenceScreen(navController: NavController, context: Context) {
         mutableStateOf(
             listOf(
                 true, true, true, true, true,
-                true, true, true, true
+                true, true, true, true, true
             )
         )
     }
@@ -42,7 +45,8 @@ fun ConferenceScreen(navController: NavController, context: Context) {
     var title by remember { mutableStateOf("") }
     var conferenceName by remember { mutableStateOf("") }
     var conducted by remember { mutableStateOf("") }
-    var conferenceDate by remember { mutableStateOf("") }
+    var startDate by remember { mutableStateOf("") }
+    var endDate by remember { mutableStateOf("") }
     var proceedingName by remember { mutableStateOf("") }
     var issnNo by remember { mutableStateOf("") }
 
@@ -71,7 +75,7 @@ fun ConferenceScreen(navController: NavController, context: Context) {
             onValueChange = { authorName = it },
             showError = !validateDetails[2],
             readOnly = false,
-            label = "Author's Name"
+            label = "Authors Name"
         )
         Spacer(modifier = Modifier.height(8.dp))
         BuildTextField(
@@ -98,17 +102,32 @@ fun ConferenceScreen(navController: NavController, context: Context) {
             label = "Conference Conducted By"
         )
         Spacer(modifier = Modifier.height(8.dp))
-        conferenceDate = buildDatePicker(
-            date = conferenceDate,
-            label = "Conference Date",
-            showError = !validateDetails[6],
-            isEditing = true
-        )
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.SpaceEvenly
+        ) {
+            Box(Modifier.weight(1f)) {
+                startDate = buildDatePicker(
+                    date = "",
+                    label = "Start Date",
+                    showError = !validateDetails[6],
+                    isEditing = true
+                )
+            }
+            Spacer(modifier = Modifier.width(16.dp))
+            Box(Modifier.weight(1f)) {
+                endDate = buildDatePicker(
+                    date = "", label = "End Date",
+                    showError = !validateDetails[7],
+                    isEditing = true
+                )
+            }
+        }
         Spacer(modifier = Modifier.height(8.dp))
         BuildTextField(
             value = proceedingName,
             onValueChange = { proceedingName = it },
-            showError = !validateDetails[7],
+            showError = !validateDetails[8],
             readOnly = false,
             label = "Conference Proceeding Name"
         )
@@ -116,7 +135,7 @@ fun ConferenceScreen(navController: NavController, context: Context) {
         BuildTextField(
             value = issnNo,
             onValueChange = { issnNo = it },
-            showError = !validateDetails[8],
+            showError = !validateDetails[9],
             readOnly = false,
             label = "ISSN/ISBN Number"
         )
@@ -129,7 +148,8 @@ fun ConferenceScreen(navController: NavController, context: Context) {
                 title = title,
                 conferenceName = conferenceName,
                 conducted = conducted,
-                conferenceDate = conferenceDate,
+                startDate = startDate,
+                endDate = endDate,
                 proceedingName = proceedingName,
                 issnNo = issnNo
             )
@@ -137,13 +157,14 @@ fun ConferenceScreen(navController: NavController, context: Context) {
             if (isValidated) {
                 InsertConferenceDetails(context).insertConferenceDetails(
                     ConferenceData(
-                        authorName,
-                        title,
-                        conferenceName,
-                        conducted,
-                        conferenceDate,
-                        proceedingName,
-                        issnNo
+                        authorName = authorName,
+                        paperTitle = title,
+                        conferenceName = conferenceName,
+                        conducted = conducted,
+                        startDate = startDate,
+                        endDate = endDate,
+                        proceedingName = proceedingName,
+                        issnNo = issnNo
                     )
                 )
                 navController.navigate(NavigationScreen.PublicationView.route) {
@@ -163,7 +184,8 @@ fun validate(
     title: String,
     conferenceName: String,
     conducted: String,
-    conferenceDate: String,
+    startDate: String,
+    endDate: String,
     proceedingName: String,
     issnNo: String
 ): List<Boolean> {
@@ -172,9 +194,10 @@ fun validate(
         year.isNotBlank(),
         authorName.isNotBlank(),
         title.isNotBlank(),
-        conferenceDate.isNotBlank(),
         conferenceName.isNotBlank(),
         conducted.isNotBlank(),
+        startDate.isNotBlank(),
+        endDate.isNotBlank(),
         proceedingName.isNotBlank(),
         issnNo.isNotBlank()
     )

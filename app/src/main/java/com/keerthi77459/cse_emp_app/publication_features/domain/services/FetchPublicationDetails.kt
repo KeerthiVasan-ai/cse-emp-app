@@ -73,7 +73,8 @@ class FetchPublicationDetails {
                                         paperTitle = data["paperTitle"].toString(),
                                         conferenceName = data["conferenceName"].toString(),
                                         conducted = data["conducted"].toString(),
-                                        date = data["date"].toString(),
+                                        startDate = data["startDate"].toString(),
+                                        endDate = data["endDate"].toString(),
                                         proceedingName = data["proceedingName"].toString(),
                                         issnNo = data["issnNo"].toString()
                                     )

@@ -95,7 +95,7 @@ fun BuildTextField(
                 style = MaterialTheme.typography.labelMedium,
                 modifier = Modifier
                     .padding(start = 8.dp)
-                    .offset(y = (-8).dp)
+                    .offset(y = 8.dp)
                     .fillMaxWidth(0.9f)
             )
         }

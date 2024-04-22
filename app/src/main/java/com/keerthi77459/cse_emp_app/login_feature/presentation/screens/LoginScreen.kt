@@ -1,16 +1,17 @@
 package com.keerthi77459.cse_emp_app.login_feature.presentation.screens
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -20,13 +21,14 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.focus.FocusRequester
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import com.keerthi77459.cse_emp_app.R
+import com.keerthi77459.cse_emp_app.core.components.BuildButton
 import com.keerthi77459.cse_emp_app.core.components.BuildDivider
+import com.keerthi77459.cse_emp_app.core.styles.Styles
 import com.keerthi77459.cse_emp_app.login_feature.domain.model.InputType
 import com.keerthi77459.cse_emp_app.login_feature.domain.view_model.LoginViewModel
 import com.keerthi77459.cse_emp_app.login_feature.presentation.components.BuildTextField
@@ -44,6 +46,7 @@ fun LoginScreen(loginViewModel: LoginViewModel) {
 
     Column(
         Modifier
+            .background(brush = Styles().background)
             .padding(24.dp)
             .fillMaxSize(),
         verticalArrangement = Arrangement.spacedBy(16.dp, alignment = Alignment.Bottom),
@@ -55,6 +58,8 @@ fun LoginScreen(loginViewModel: LoginViewModel) {
                 .clip(RoundedCornerShape(30.dp)),
             contentScale = ContentScale.Crop
         )
+        Text(text = "Staff Sphere", style = Styles().bigText)
+        Spacer(modifier = Modifier.height(24.dp))
         BuildTextField(
             value = userName,
             onValueChanged = { userName = it },
@@ -76,20 +81,19 @@ fun LoginScreen(loginViewModel: LoginViewModel) {
                 focusManager.clearFocus()
             }), focusRequester = passwordFocusRequester
         )
-        com.keerthi77459.cse_emp_app.core.components.BuildButton {
+        BuildButton("LOGIN"){
             validateDetailsList = validate(userName, password)
             if ((validateDetailsList[0] && validateDetailsList[1])) {
-                loginViewModel.login(userName,password)
+                loginViewModel.login(userName, password)
             }
         }
-//        BuildButton(loginViewModel, userName, password)
         BuildDivider()
-        Row(verticalAlignment = Alignment.CenterVertically) {
-            Text("Forget your credentials?", color = Color.Black)
-            TextButton(onClick = {}) {
-                Text("RESET PASSWORD")
-            }
-        }
+//        Row(verticalAlignment = Alignment.CenterVertically) {
+//            Text("Forget your credentials?", color = Color.Black)
+//            TextButton(onClick = {}) {
+//                Text("RESET PASSWORD")
+//            }
+//        }
     }
 }
 

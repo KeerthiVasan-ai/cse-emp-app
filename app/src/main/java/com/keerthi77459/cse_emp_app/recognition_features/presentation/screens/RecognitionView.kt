@@ -1,8 +1,11 @@
 package com.keerthi77459.cse_emp_app.recognition_features.presentation.screens
 
 import android.annotation.SuppressLint
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
@@ -23,6 +26,7 @@ import androidx.navigation.compose.rememberNavController
 import com.keerthi77459.cse_emp_app.core.components.BuildAppBar
 import com.keerthi77459.cse_emp_app.core.components.BuildFloatingActionButton
 import com.keerthi77459.cse_emp_app.core.navigation.NavigationScreen
+import com.keerthi77459.cse_emp_app.core.styles.Styles
 import com.keerthi77459.cse_emp_app.recognition_features.data.repository.RecognitionData
 import com.keerthi77459.cse_emp_app.recognition_features.domain.services.FetchRecognitionDetails
 import com.keerthi77459.cse_emp_app.recognition_features.presentation.components.BuildListView
@@ -56,9 +60,12 @@ fun RecognitionView(navController: NavController) {
                 navController.navigate(NavigationScreen.RecognitionScreen.route)
             }
         }
-    ) {
+    ) { paddingValue ->
         Column(
-            modifier = Modifier.padding(it),
+            modifier = Modifier
+                .fillMaxSize()
+                .background(brush = Styles().background)
+                .padding(paddingValue),
             verticalArrangement = Arrangement.spacedBy(16.dp),
         ) {
             LazyColumn {
