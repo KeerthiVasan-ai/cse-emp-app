@@ -26,24 +26,25 @@ import com.keerthi77459.cse_emp_app.recognition_features.data.repository.Recogni
 fun BuildListView(recognitionData: RecognitionData) {
     Card(
         modifier = Modifier
-            .padding(horizontal = 8.dp, vertical = 0.dp)
+            .padding(start = 16.dp, end = 16.dp, top = 8.dp)
             .fillMaxWidth(),
-        elevation = CardDefaults.cardElevation(4.dp),
+        elevation = CardDefaults.cardElevation(2.dp),
         colors = CardDefaults.cardColors(Color.White),
         shape = RoundedCornerShape(corner = CornerSize(8.dp)),
     ) {
-        Column(
-            modifier = Modifier
-                .clickable {}
-                .padding(16.dp)
-                .fillMaxWidth()
-        ) {
-            Text(text = recognitionData.name,style = Styles().mediumText2)
-            Spacer(modifier = Modifier.height(8.dp))
-            Text(text = recognitionData.givenBy, style = Styles().mediumText2)
+        Row(Modifier.clickable {}) {
+            Column(
+                modifier = Modifier
+                    .padding(16.dp)
+                    .fillMaxWidth()
+                    .align(Alignment.CenterVertically)
+            ) {
+                Text(text = recognitionData.name, style = Styles().mediumText2)
+                Spacer(modifier = Modifier.height(8.dp))
+                Text(text = recognitionData.givenBy, style = Styles().mediumText2)
+            }
         }
     }
-    Spacer(modifier = Modifier.height(8.dp))
 }
 
 @Preview
