@@ -1,8 +1,11 @@
 package com.keerthi77459.cse_emp_app.academic_features.presentation.screen
 
 import android.annotation.SuppressLint
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
@@ -23,6 +26,7 @@ import com.keerthi77459.cse_emp_app.academic_features.presentation.components.Ac
 import com.keerthi77459.cse_emp_app.core.components.BuildAppBar
 import com.keerthi77459.cse_emp_app.core.components.BuildFloatingActionButton
 import com.keerthi77459.cse_emp_app.core.navigation.NavigationScreen
+import com.keerthi77459.cse_emp_app.core.styles.Styles
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
@@ -56,12 +60,14 @@ fun AcademicScreen(navController: NavController) {
         }
     ) { paddingValue ->
         Column(
-            modifier = Modifier.padding(paddingValues = paddingValue),
+            modifier = Modifier
+                .fillMaxSize()
+                .background(brush = Styles().background)
+                .padding(paddingValues = paddingValue),
             verticalArrangement = Arrangement.spacedBy(16.dp),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             academicData?.let { data ->
-
                 AcademicScreenForm(
                     joiningDate = data.joiningDate,
                     meAwarded = data.mPhilAwarded,

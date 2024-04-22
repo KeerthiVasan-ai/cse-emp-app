@@ -1,6 +1,7 @@
 package com.keerthi77459.cse_emp_app.academic_features.presentation.screen
 
 import android.annotation.SuppressLint
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -50,7 +51,9 @@ fun AcademicDetailsForm(navController: NavController) {
         }
     ) {
         Column(
-            modifier = Modifier.padding(paddingValues = it),
+            modifier = Modifier
+                .background(brush = Styles().background)
+                .padding(paddingValues = it),
             verticalArrangement = Arrangement.spacedBy(16.dp),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
