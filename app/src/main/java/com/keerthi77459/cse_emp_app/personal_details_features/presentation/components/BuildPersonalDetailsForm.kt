@@ -1,26 +1,21 @@
 package com.keerthi77459.cse_emp_app.personal_details_features.presentation.components
 
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material3.Button
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.painter.Painter
-import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import com.keerthi77459.cse_emp_app.core.components.BuildButton
 import com.keerthi77459.cse_emp_app.core.components.BuildTextField
 import com.keerthi77459.cse_emp_app.core.components.buildDatePicker
 import com.keerthi77459.cse_emp_app.core.navigation.NavigationScreen
@@ -172,61 +167,57 @@ fun PersonalDetailsForm(
                 readOnly = false,
                 label = "Blood Group"
             )
+            Spacer(modifier = Modifier.height(16.dp))
+            BuildButton("Update") {
+                validateDetails = validate(
+                    tokenNumber = editedTokenNumber,
+                    name = editedName,
+                    designation = editedDesignation,
+                    qualification = editedQualification,
+                    specialization = editedSpecialization,
+                    dob = editedDOB,
+                    address = editedAddress,
+                    presentAddress = editedPresentAddress,
+                    phoneNumber = editedPhoneNumber,
+                    bloodGroup = editedBloodGroup
+                )
+                println(validateDetails)
+                val isValidated = validateDetails.all { it }
+                println(isValidated)
+                if (isValidated) {
 
-            Button(
-                onClick = {
-                    validateDetails = validate(
-                        tokenNumber = editedTokenNumber,
-                        name = editedName,
-                        designation = editedDesignation,
-                        qualification = editedQualification,
-                        specialization = editedSpecialization,
-                        dob = editedDOB,
-                        address = editedAddress,
-                        presentAddress = editedPresentAddress,
-                        phoneNumber = editedPhoneNumber,
-                        bloodGroup = editedBloodGroup
-                    )
-                    println(validateDetails)
-                    val isValidated = validateDetails.all { it }
-                    println(isValidated)
-                    if (isValidated) {
-
-                        UpdatePersonalDetails().updatePersonalDetails(
-                            PersonalDetailsData(
-                                tokenNumber = editedTokenNumber,
-                                name = editedName,
-                                dob = editedDOB,
-                                designation = editedDesignation,
-                                qualification = editedQualification,
-                                specialization = editedSpecialization,
-                                address = editedAddress,
-                                presentAddress = editedPresentAddress,
-                                phoneNumber = editedPhoneNumber,
-                                bloodGroup = editedBloodGroup
-                            )
+                    UpdatePersonalDetails().updatePersonalDetails(
+                        PersonalDetailsData(
+                            tokenNumber = editedTokenNumber,
+                            name = editedName,
+                            dob = editedDOB,
+                            designation = editedDesignation,
+                            qualification = editedQualification,
+                            specialization = editedSpecialization,
+                            address = editedAddress,
+                            presentAddress = editedPresentAddress,
+                            phoneNumber = editedPhoneNumber,
+                            bloodGroup = editedBloodGroup
                         )
-                        onTokenNumberChange(editedTokenNumber)
-                        onNameChange(editedName)
-                        onDOBChange(editedDOB)
-                        onDesignationChange(editedDesignation)
-                        onQualificationChange(editedQualification)
-                        onSpecializationChange(editedSpecialization)
-                        onAddressChange(editedAddress)
-                        onPresentAddressChange(editedPresentAddress)
-                        onPhoneNumberChange(editedPhoneNumber)
-                        onBloodGroupChange(editedBloodGroup)
+                    )
+                    onTokenNumberChange(editedTokenNumber)
+                    onNameChange(editedName)
+                    onDOBChange(editedDOB)
+                    onDesignationChange(editedDesignation)
+                    onQualificationChange(editedQualification)
+                    onSpecializationChange(editedSpecialization)
+                    onAddressChange(editedAddress)
+                    onPresentAddressChange(editedPresentAddress)
+                    onPhoneNumberChange(editedPhoneNumber)
+                    onBloodGroupChange(editedBloodGroup)
 
-                        onEditingChange(!editing)
-                        navController.navigate(NavigationScreen.PersonalDetailsScreen.route) {
-                            popUpTo(NavigationScreen.PersonalDetailsScreen.route) {
-                                inclusive = true
-                            }
+                    onEditingChange(!editing)
+                    navController.navigate(NavigationScreen.PersonalDetailsScreen.route) {
+                        popUpTo(NavigationScreen.PersonalDetailsScreen.route) {
+                            inclusive = true
                         }
                     }
                 }
-            ) {
-                Text(text = "SUBMIT")
             }
         } else {
             BuildTextField(
