@@ -17,7 +17,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
-import com.keerthi77459.cse_emp_app.R
 import com.keerthi77459.cse_emp_app.academic_features.data.repository.AcademicData
 import com.keerthi77459.cse_emp_app.academic_features.domain.services.FetchAcademicsDetail
 import com.keerthi77459.cse_emp_app.academic_features.presentation.components.AcademicScreenForm
@@ -44,14 +43,15 @@ fun AcademicScreen(navController: NavController) {
     Scaffold(
         floatingActionButton = {
             BuildFloatingActionButton(icon = Icons.Filled.Add) {
-                navController.navigate(NavigationScreen.AcademicDetailsForm.route)
+                navController.navigate(NavigationScreen.AcademicScreen.route)
             }
         },
 
         topBar = {
             BuildAppBar(
                 title = "Academic Details",
-                icon = R.drawable.baseline_edit_note_24
+                showIcon = false,
+                icon = Icons.Filled.Add
             ) {}
         }
     ) { paddingValue ->
@@ -68,8 +68,8 @@ fun AcademicScreen(navController: NavController) {
                     phdAwarded = data.phdAwarded,
                     meGuide = data.mPhilGuide,
                     phdGuided = data.phdGuide,
-                    "", "", "", "",
-                    "", "", "", "",
+                    attendedCount = data.attendedCount,
+                    conductedCount = data.conductedCount
                 )
             }
         }

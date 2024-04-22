@@ -5,5 +5,8 @@ data class AcademicData(
     var mPhilAwarded: String,
     var phdAwarded: String,
     var mPhilGuide: String,
-    var phdGuide: String
+    var phdGuide: String,
+
+    var attendedCount: String="",
+    var conductedCount: String=""
 )
