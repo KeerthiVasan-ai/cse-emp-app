@@ -72,7 +72,7 @@ fun PatentScreen(navController: NavController, context: Context) {
         Spacer(modifier = Modifier.height(8.dp))
         status = buildDropDownMenu(
             label = "Status",
-            menus = listOf("Approved", "Waiting", "Rejected"),
+            menus = listOf("Approved", "Submitted"),
             showError = !validateDetails[3]
         )
         Spacer(modifier = Modifier.height(8.dp))
