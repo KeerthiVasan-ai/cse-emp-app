@@ -25,7 +25,8 @@ class FetchOnlineCourseDetails {
                                         course = data["course"].toString(),
                                         offeredBy = data["offeredBy"].toString(),
                                         startDate = data["startDate"].toString(),
-                                        endDate = data["endDate"].toString()
+                                        endDate = data["endDate"].toString(),
+                                        grade = data["grade"].toString()
                                     )
                                 )
                             }

@@ -30,6 +30,7 @@ import com.keerthi77459.cse_emp_app.core.components.BuildAppBar
 import com.keerthi77459.cse_emp_app.core.components.BuildButton
 import com.keerthi77459.cse_emp_app.core.components.BuildTextField
 import com.keerthi77459.cse_emp_app.core.components.buildDatePicker
+import com.keerthi77459.cse_emp_app.core.components.buildDropDownMenu
 import com.keerthi77459.cse_emp_app.core.navigation.NavigationScreen
 import com.keerthi77459.cse_emp_app.core.styles.Styles
 import com.keerthi77459.cse_emp_app.online_courses_feature.data.OnlineCoursesData
@@ -45,6 +46,7 @@ fun OnlineCoursesScreen(navController: NavController) {
                 true,
                 true,
                 true,
+                true,
                 true
             )
         )
@@ -53,6 +55,7 @@ fun OnlineCoursesScreen(navController: NavController) {
     var offered by remember { mutableStateOf("") }
     var startDate by remember { mutableStateOf("") }
     var endDate by remember { mutableStateOf("") }
+    var grade by remember { mutableStateOf("") }
 
     Scaffold(
         topBar = {
@@ -119,12 +122,19 @@ fun OnlineCoursesScreen(navController: NavController) {
                         }
                     }
                     Spacer(modifier = Modifier.height(8.dp))
+                    grade = buildDropDownMenu(
+                        label = "Status",
+                        menus = listOf("Elite + Gold", "Elite + Silver", "Elite", "None"),
+                        showError = !validateDetails[4]
+                    )
+                    Spacer(modifier = Modifier.height(8.dp))
                     BuildButton {
                         validateDetails = validate(
                             course = course,
                             offered = offered,
                             startDate = startDate,
-                            endDate = endDate
+                            endDate = endDate,
+                            grade = grade
                         )
                         val isValidated = validateDetails.all { it }
                         if (isValidated) {
@@ -133,7 +143,8 @@ fun OnlineCoursesScreen(navController: NavController) {
                                     course,
                                     offered,
                                     startDate,
-                                    endDate
+                                    endDate,
+                                    grade
                                 )
                             )
                             navController.navigate(NavigationScreen.OnlineCoursesView.route) {
@@ -149,11 +160,18 @@ fun OnlineCoursesScreen(navController: NavController) {
     }
 }
 
-fun validate(course: String, offered: String, startDate: String, endDate: String): List<Boolean> {
+fun validate(
+    course: String,
+    offered: String,
+    startDate: String,
+    endDate: String,
+    grade: String
+): List<Boolean> {
     return listOf(
         course.isNotBlank(),
         offered.isNotBlank(),
         startDate.isNotBlank(),
-        endDate.isNotBlank()
+        endDate.isNotBlank(),
+        grade.isNotBlank()
     )
 }
