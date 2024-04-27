@@ -33,7 +33,8 @@ class FetchPublicationDetails {
                                         volNo = data["volNo"].toString(),
                                         indexed = data["indexed"].toString(),
                                         issueNo = data["issueNo"].toString(),
-                                        issnNo = data["issnNo"].toString()
+                                        issnNo = data["issnNo"].toString(),
+                                        impactFactor = data["impactFactor"].toString()
                                     )
                                 )
                             }

@@ -4,6 +4,7 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
@@ -12,6 +13,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -21,20 +23,26 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.focus.FocusRequester
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
+import androidx.navigation.NavDeepLinkRequest
 import com.keerthi77459.cse_emp_app.R
 import com.keerthi77459.cse_emp_app.core.components.BuildButton
 import com.keerthi77459.cse_emp_app.core.components.BuildDivider
+import com.keerthi77459.cse_emp_app.core.navigation.NavigationScreen
 import com.keerthi77459.cse_emp_app.core.styles.Styles
+import com.keerthi77459.cse_emp_app.login_feature.data.api.Auth
 import com.keerthi77459.cse_emp_app.login_feature.domain.model.InputType
 import com.keerthi77459.cse_emp_app.login_feature.domain.view_model.LoginViewModel
 import com.keerthi77459.cse_emp_app.login_feature.presentation.components.BuildTextField
 
 @Composable
-fun LoginScreen(loginViewModel: LoginViewModel) {
+fun LoginScreen(loginViewModel: LoginViewModel, reset: () -> Unit) {
     val passwordFocusRequester = FocusRequester()
     val focusManager = LocalFocusManager.current
     var userName by remember { mutableStateOf("") }
@@ -81,22 +89,23 @@ fun LoginScreen(loginViewModel: LoginViewModel) {
                 focusManager.clearFocus()
             }), focusRequester = passwordFocusRequester
         )
-        BuildButton("LOGIN"){
+        BuildButton("LOGIN") {
             validateDetailsList = validate(userName, password)
             if ((validateDetailsList[0] && validateDetailsList[1])) {
                 loginViewModel.login(userName, password)
             }
         }
         BuildDivider()
-//        Row(verticalAlignment = Alignment.CenterVertically) {
-//            Text("Forget your credentials?", color = Color.Black)
-//            TextButton(onClick = {}) {
-//                Text("RESET PASSWORD")
-//            }
-//        }
+        Row(verticalAlignment = Alignment.CenterVertically) {
+            Text("Forget your credentials?", color = Color.Black)
+            TextButton(onClick = {
+                reset()
+            }) {
+                Text("RESET PASSWORD")
+            }
+        }
     }
 }
-
 
 fun validate(userName: String, password: String): List<Boolean> {
     var validateUserNameCheck by mutableStateOf(true)

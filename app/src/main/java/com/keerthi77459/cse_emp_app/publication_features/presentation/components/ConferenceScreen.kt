@@ -35,7 +35,7 @@ fun ConferenceScreen(navController: NavController, context: Context) {
         mutableStateOf(
             listOf(
                 true, true, true, true, true,
-                true, true, true, true, true
+                true, true, true, true,
             )
         )
     }
@@ -135,13 +135,12 @@ fun ConferenceScreen(navController: NavController, context: Context) {
         BuildTextField(
             value = issnNo,
             onValueChange = { issnNo = it },
-            showError = !validateDetails[9],
             readOnly = false,
             label = "ISSN/ISBN Number"
         )
         Spacer(modifier = Modifier.height(8.dp))
         BuildButton {
-            validateDetails = validate(
+            validateDetails = validateConference(
                 conferenceType = conferenceType,
                 year = year,
                 authorName = authorName,
@@ -150,8 +149,7 @@ fun ConferenceScreen(navController: NavController, context: Context) {
                 conducted = conducted,
                 startDate = startDate,
                 endDate = endDate,
-                proceedingName = proceedingName,
-                issnNo = issnNo
+                proceedingName = proceedingName
             )
             val isValidated = validateDetails.all { it }
             if (isValidated) {
@@ -177,7 +175,7 @@ fun ConferenceScreen(navController: NavController, context: Context) {
     }
 }
 
-fun validate(
+fun validateConference(
     conferenceType: String,
     year: String,
     authorName: String,
@@ -187,7 +185,6 @@ fun validate(
     startDate: String,
     endDate: String,
     proceedingName: String,
-    issnNo: String
 ): List<Boolean> {
     return listOf(
         conferenceType.isNotBlank(),
@@ -199,6 +196,5 @@ fun validate(
         startDate.isNotBlank(),
         endDate.isNotBlank(),
         proceedingName.isNotBlank(),
-        issnNo.isNotBlank()
     )
 }

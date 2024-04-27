@@ -86,7 +86,7 @@ fun PersonalDetailsForm(
                 showError = !validateDetails[0],
                 errorMessage = "Required Field",
                 readOnly = false,
-                label = "Token Number"
+                label = "Staff Id"
             )
             Spacer(modifier = Modifier.height(8.dp))
             BuildTextField(
@@ -226,7 +226,7 @@ fun PersonalDetailsForm(
                 showError = !validateDetails[0],
                 errorMessage = "Required Field",
                 readOnly = true,
-                label = "Token Number"
+                label = "Staff Id"
             )
             Spacer(modifier = Modifier.height(8.dp))
             BuildTextField(

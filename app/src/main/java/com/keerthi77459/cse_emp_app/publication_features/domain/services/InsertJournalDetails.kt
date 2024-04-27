@@ -16,6 +16,7 @@ class InsertJournalDetails(val context: Context) {
         println(journalData.issueNo)
         println(journalData.indexed)
         println(journalData.issnNo)
+        println(journalData.impactFactor)
 
         val uid = Auth().auth.uid
 

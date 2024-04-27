@@ -18,6 +18,8 @@ import com.keerthi77459.cse_emp_app.publication_features.presentation.screens.Pu
 import com.keerthi77459.cse_emp_app.publication_features.presentation.screens.PublicationView
 import com.keerthi77459.cse_emp_app.recognition_features.presentation.screens.RecognitionScreen
 import com.keerthi77459.cse_emp_app.recognition_features.presentation.screens.RecognitionView
+import com.keerthi77459.cse_emp_app.reset_password_features.domain.view_model.ResetViewModel
+import com.keerthi77459.cse_emp_app.reset_password_features.presentation.screens.ResetPassword
 
 @Composable
 fun NavigationMap(context: Context) {
@@ -25,9 +27,8 @@ fun NavigationMap(context: Context) {
     NavHost(navController = navController, startDestination = NavigationScreen.MainScreen.route) {
 
         composable(route = NavigationScreen.LoginScreen.route) {
-            LoginScreen(loginViewModel = LoginViewModel(Auth()))
+            LoginScreen(LoginViewModel(Auth())) { println("FROM NAV") }
         }
-
         composable(route = NavigationScreen.MainScreen.route) {
             MainScreen(context, navController)
         }
@@ -57,6 +58,9 @@ fun NavigationMap(context: Context) {
         }
         composable(route = NavigationScreen.OnlineCoursesScreen.route) {
             OnlineCoursesScreen(navController)
+        }
+        composable(route = NavigationScreen.ResetPassword.route) {
+            ResetPassword(ResetViewModel(Auth()))
         }
     }
 }

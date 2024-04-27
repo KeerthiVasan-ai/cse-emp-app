@@ -11,6 +11,7 @@ class InsertOnlineCourseDetails {
         println(onlineCoursesData.offeredBy)
         println(onlineCoursesData.startDate)
         println(onlineCoursesData.endDate)
+        println(onlineCoursesData.grade)
 
         val uid = Auth().auth.uid
         val courseId = generateRandomSequence()

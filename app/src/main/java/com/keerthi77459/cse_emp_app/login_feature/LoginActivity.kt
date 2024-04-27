@@ -7,8 +7,6 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -21,6 +19,7 @@ import com.keerthi77459.cse_emp_app.login_feature.domain.view_model.LoginViewMod
 import com.keerthi77459.cse_emp_app.login_feature.domain.view_model.LoginViewModelFactory
 import com.keerthi77459.cse_emp_app.login_feature.presentation.screens.LoginScreen
 import com.keerthi77459.cse_emp_app.main_features.HomeActivity
+import com.keerthi77459.cse_emp_app.reset_password_features.ResetPasswordActivity
 import com.keerthi77459.cse_emp_app.ui.theme.Cse_emp_appTheme
 
 class LoginActivity : ComponentActivity() {
@@ -35,12 +34,12 @@ class LoginActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     contentAlignment = Alignment.Center
                 ) {
-                    InitUI()
+                    InitUI(viewModel) { startResetActivity() }
                 }
             }
         }
         val factory = LoginViewModelFactory(Auth())
-        viewModel = ViewModelProvider(this, factory).get(LoginViewModel::class.java)
+        viewModel = ViewModelProvider(this, factory)[LoginViewModel::class.java]
 
         viewModel.loginState.observe(this) { loginState ->
             when (loginState) {
@@ -49,20 +48,19 @@ class LoginActivity : ComponentActivity() {
                 }
 
                 is LoginState.Error -> {
-                    Toast.makeText(this, loginState.message, Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this, loginState.message, Toast.LENGTH_LONG).show()
                 }
             }
         }
     }
 
-    @Composable
-    fun InitUI() {
-        LoginScreen(viewModel)
-    }
-
     private fun startHomeActivity() {
         startActivity(Intent(this, HomeActivity::class.java))
         finish()
+    }
+
+    private fun startResetActivity() {
+        startActivity(Intent(this, ResetPasswordActivity::class.java))
     }
 
     override fun onStart() {
@@ -72,4 +70,9 @@ class LoginActivity : ComponentActivity() {
             startHomeActivity()
         }
     }
+}
+
+@Composable
+fun InitUI(loginViewModel: LoginViewModel, reset: () -> Unit) {
+    LoginScreen(loginViewModel, reset)
 }

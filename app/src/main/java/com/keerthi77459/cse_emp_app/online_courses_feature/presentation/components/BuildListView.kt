@@ -54,7 +54,8 @@ fun ListViewPreview() {
             course = "Data Analytics with Python",
             offeredBy = "IIT Madras",
             startDate = "01-01-2024",
-            endDate = "21-04-2024"
+            endDate = "21-04-2024",
+            grade = "Elite"
         )
     )
 }

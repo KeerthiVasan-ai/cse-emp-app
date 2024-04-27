@@ -30,7 +30,7 @@ fun JournalScreen(navController: NavController, context: Context) {
     var validateDetails by remember {
         mutableStateOf(
             listOf(
-                true, true, true, true, true, true, true, true
+                true, true, true, true, true, true, true, true, true
             )
         )
     }
@@ -42,6 +42,7 @@ fun JournalScreen(navController: NavController, context: Context) {
     var issueNo by remember { mutableStateOf("") }
     var indexed by remember { mutableStateOf("") }
     var issnNo by remember { mutableStateOf("") }
+    var impactFactor by remember { mutableStateOf("") }
 
     Column(
         modifier = Modifier
@@ -108,6 +109,14 @@ fun JournalScreen(navController: NavController, context: Context) {
             label = "ISSN Number"
         )
         Spacer(modifier = Modifier.height(8.dp))
+        BuildTextField(
+            value = issnNo,
+            onValueChange = { newValue -> issnNo = newValue },
+            showError = !validateDetails[8],
+            readOnly = false,
+            label = "Impact Factor"
+        )
+        Spacer(modifier = Modifier.height(8.dp))
         BuildButton {
             validateDetails = validate(
                 journalType = journalType,
@@ -117,7 +126,8 @@ fun JournalScreen(navController: NavController, context: Context) {
                 volNo = volNo,
                 issueNo = issueNo,
                 indexed = indexed,
-                issnNo = issnNo
+                issnNo = issnNo,
+                impactFactor = impactFactor
             )
             val isValidated = validateDetails.all { it }
             if (isValidated) {
@@ -127,7 +137,7 @@ fun JournalScreen(navController: NavController, context: Context) {
                         journalName,
                         volNo,
                         issueNo,
-                        indexed, issnNo
+                        indexed, issnNo, impactFactor
                     )
                 )
                 navController.navigate(NavigationScreen.PublicationView.route) {
@@ -148,7 +158,8 @@ fun validate(
     volNo: String,
     issueNo: String,
     indexed: String,
-    issnNo: String
+    issnNo: String,
+    impactFactor: String
 ): List<Boolean> {
     return listOf(
         journalType.isNotBlank(),
@@ -158,6 +169,7 @@ fun validate(
         volNo.isNotBlank(),
         issueNo.isNotBlank(),
         indexed.isNotBlank(),
-        issnNo.isNotBlank()
+        issnNo.isNotBlank(),
+        impactFactor.isNotBlank()
     )
 }

@@ -67,7 +67,7 @@ fun ExpandableScreen(state: ExpandableState) {
                             Text(
                                 modifier = Modifier
                                     .weight(1f),
-                                text = "List of ${entry.key}",
+                                text = "List of ${entry.key}s",
                                 style = Styles().mediumText1,
                                 fontWeight = FontWeight.Bold
                             )

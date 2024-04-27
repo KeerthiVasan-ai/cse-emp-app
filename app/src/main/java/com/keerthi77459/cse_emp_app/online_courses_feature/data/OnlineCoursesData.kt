@@ -5,4 +5,5 @@ data class OnlineCoursesData(
     var offeredBy: String,
     var startDate: String,
     var endDate: String,
+    var grade: String
 )

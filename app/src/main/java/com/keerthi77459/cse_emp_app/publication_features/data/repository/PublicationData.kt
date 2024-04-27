@@ -6,7 +6,8 @@ data class JournalData(
     var volNo: String,
     var issueNo: String,
     var indexed: String,
-    var issnNo: String
+    var issnNo: String,
+    var impactFactor: String
 )
 
 data class ConferenceData(
@@ -17,7 +18,7 @@ data class ConferenceData(
     var startDate: String,
     var endDate: String,
     var proceedingName: String,
-    var issnNo: String
+    var issnNo: String = ""
 )
 
 data class PatentData(
