@@ -28,15 +28,14 @@ fun BuildGridItems(data: MenuData, navController: NavController, context: Contex
 
     Column(
         Modifier
-            .height(250.dp)
-            .width(200.dp)
-            .padding(16.dp),
+            .height(200.dp)
+            .width(150.dp)
+            .padding(8.dp),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Image(
             modifier = Modifier
-                .size(180.dp)
-                .clip(RoundedCornerShape(30.dp))
+                .size(130.dp)
                 .clickable {
                     println(data.title)
                     try {
@@ -51,7 +50,7 @@ fun BuildGridItems(data: MenuData, navController: NavController, context: Contex
             contentDescription = data.title,
             contentScale = ContentScale.Fit
         )
-        Spacer(modifier = Modifier.height(16.dp))
+        Spacer(modifier = Modifier.height(8.dp))
         Text(
             text = data.title,
             fontWeight = FontWeight.SemiBold

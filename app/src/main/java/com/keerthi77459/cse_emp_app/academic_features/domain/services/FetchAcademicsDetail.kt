@@ -15,11 +15,11 @@ class FetchAcademicsDetail {
                     val queryDocumentSnapshots = task.result
                     if (queryDocumentSnapshots != null && queryDocumentSnapshots.exists()) {
                         val data = queryDocumentSnapshots.data
-                        val joiningDate = data?.get("date_of_joining").toString()
-                        val mPhilAward = data?.get("mphil_awarded").toString()
-                        val mPhilGuide = data?.get("mphil_guidance").toString()
-                        val phdAwarded = data?.get("phd_Awarded").toString()
-                        val phdGuide = data?.get("phd_Guidance").toString()
+                        val joiningDate = data?.get("joiningDate").toString()
+                        val mPhilAward = data?.get("meAwarded").toString()
+                        val mPhilGuide = data?.get("meGuide").toString()
+                        val phdAwarded = data?.get("phdAwarded").toString()
+                        val phdGuide = data?.get("phdGuided").toString()
                         val attendCount = data?.get("attendedCount").toString()
                         val conductedCount = data?.get("conductedCount").toString()
 
