@@ -5,7 +5,9 @@ import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -26,8 +28,9 @@ fun BuildGridItems(data: MenuData, navController: NavController, context: Contex
 
     Column(
         Modifier
-            .height(200.dp)
-            .width(150.dp),
+            .height(250.dp)
+            .width(200.dp)
+            .padding(16.dp),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Image(
@@ -46,8 +49,9 @@ fun BuildGridItems(data: MenuData, navController: NavController, context: Contex
                 },
             painter = painterResource(id = data.image),
             contentDescription = data.title,
-            contentScale = ContentScale.Crop
+            contentScale = ContentScale.Fit
         )
+        Spacer(modifier = Modifier.height(16.dp))
         Text(
             text = data.title,
             fontWeight = FontWeight.SemiBold

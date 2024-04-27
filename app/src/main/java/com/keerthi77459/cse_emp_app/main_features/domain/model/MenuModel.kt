@@ -7,23 +7,23 @@ object MenuModel {
     val menuList = listOf(
         MenuData(
             title = "Personal Details",
-            image = R.drawable.logo
+            image = R.drawable.personal
         ),
         MenuData(
             title = "Academics",
-            image = R.drawable.logo
+            image = R.drawable.academics
         ),
         MenuData(
             title = "Publications",
-            image = R.drawable.logo
+            image = R.drawable.publication
         ),
         MenuData(
             title = "Recognition",
-            image = R.drawable.logo
+            image = R.drawable.recognition
         ),
         MenuData(
             title = "Online Courses",
-            image = R.drawable.logo
+            image = R.drawable.online_courses
         )
     )
 }
