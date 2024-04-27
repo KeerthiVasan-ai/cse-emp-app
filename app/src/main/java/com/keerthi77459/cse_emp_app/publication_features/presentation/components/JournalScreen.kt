@@ -110,8 +110,8 @@ fun JournalScreen(navController: NavController, context: Context) {
         )
         Spacer(modifier = Modifier.height(8.dp))
         BuildTextField(
-            value = issnNo,
-            onValueChange = { newValue -> issnNo = newValue },
+            value = impactFactor,
+            onValueChange = { newValue -> impactFactor = newValue },
             showError = !validateDetails[8],
             readOnly = false,
             label = "Impact Factor"

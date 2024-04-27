@@ -74,7 +74,7 @@ fun MainScreen(context: Context, navController: NavController) {
             LazyVerticalGrid(
                 modifier = Modifier
                     .fillMaxSize()
-                    .padding(16.dp),
+                    .padding(8.dp),
                 columns = GridCells.Fixed(2)
             ) {
                 itemsIndexed(MenuModel.menuList) { _, item ->
